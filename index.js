@@ -5,8 +5,8 @@ app.get("/", (req, res) => {
   res.send(`Welcome`);
 });
 
-app.get("/films/:page", async (req, res) => {
-  const { page } = req.params;
+app.get("/films", async (req, res) => {
+  const { page } = req.query;
   const data = page ? await movies.getMovies(page) : await movies.getMovies(1);
   res.status(200).send(data);
 });
