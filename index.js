@@ -53,15 +53,14 @@ async function getHrefs(page) {
 }
 
 // getHrefs();
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
 app.get("/films", async (req, res) => {
   const { page } = req.query;
   const data = page ? await getHrefs(page) : await getHrefs(1);
-  res.json(data);
-});
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.status(200).json(data);
 });
 
 app.listen(3000);
