@@ -14,7 +14,6 @@ const getMovies = async (page) => {
     }))
     .get();
 
-  console.log(movieData);
   return movieData;
 };
 
