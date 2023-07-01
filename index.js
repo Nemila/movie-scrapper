@@ -54,13 +54,13 @@ async function getHrefs(page) {
 
 // getHrefs();
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.send("Bienvenue sur filmfr | Fait par Lamine Diamoutene");
 });
 
 app.get("/films", async (req, res) => {
   const { page } = req.query;
   const data = page ? await getHrefs(page) : await getHrefs(1);
-  res.status(200).json(data);
+  res.status(200).send(data);
 });
 
 app.listen(3000);
