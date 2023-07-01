@@ -1,8 +1,9 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const fs = require("fs");
+// const fs = require("fs");
 const express = require("express");
 const app = express();
+const path = require("path");
 
 async function getHrefs(page) {
   try {
@@ -60,7 +61,7 @@ app.get("/films", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("BIENVENUE SUR FILM-FR | API FAIT PAR LAMINE DIAMOUTENE");
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.listen(3000);
