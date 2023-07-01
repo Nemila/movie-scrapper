@@ -2,7 +2,10 @@ const app = require("express")();
 const movies = require("./utils/movies");
 
 app.get("/", (req, res) => {
-  res.send(`Welcome`);
+  res.json({
+    title: "Bienvenue sur filmFr",
+    message: "Faire par lamine diamoutene",
+  });
 });
 
 app.get("/films", async (req, res) => {
