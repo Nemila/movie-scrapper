@@ -46,5 +46,40 @@ const getEmbedUrls = async (id) => {
   return embedUrls;
 };
 
-const movies = { getMovies, getEmbedUrls };
+const searchMovie = async (query) => {
+  const { data } = await axios.post(
+    `https://wiflix.surf/index.php?story=${query}&do=search&subaction=search`
+  );
+
+  $ = cheerio.load(data);
+
+  const movieData = $("div.mov:nth-of-type(n+2)")
+    .map((_, element) => {
+      const url = $(element).find("a").first().attr("href");
+      if (!url.includes("film-en-streaming")) return;
+
+      const genres = $(element)
+        .find(".nbloc3 a")
+        .map((_, el) => $(el).text())
+        .get();
+      const title = $(element).find("a").first().text();
+      var start = url.lastIndexOf("/") + 1;
+      var end = url.lastIndexOf(".html");
+      const id =
+        start !== -1 && end !== -1 && start < end
+          ? url.substring(start, end)
+          : url;
+
+      return {
+        id,
+        title,
+        genres,
+      };
+    })
+    .get();
+
+  return movieData;
+};
+
+const movies = { getMovies, getEmbedUrls, searchMovie };
 module.exports = movies;

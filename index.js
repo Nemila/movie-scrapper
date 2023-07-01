@@ -1,5 +1,9 @@
-const app = require("express")();
+const express = require("express");
+const app = express();
 const movies = require("./utils/movies");
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -17,6 +21,12 @@ app.get("/films", async (req, res) => {
 app.get("/films/:id", async (req, res) => {
   const { id } = req.params;
   const data = await movies.getEmbedUrls(id);
+  res.status(200).json(data);
+});
+
+app.post("/search", async (req, res) => {
+  const { query } = req.body;
+  const data = await movies.searchMovie(query);
   res.status(200).send(data);
 });
 
