@@ -7,18 +7,25 @@ const getMovies = async (page) => {
   );
   $ = cheerio.load(data);
 
-  const movieData = $("a.mov-t")
+  const movieData = $("div.mov")
     .map((_, element) => {
-      const url = $(element).attr("href");
+      const genres = $(element)
+        .find(".nbloc3 a")
+        .map((_, el) => $(el).text())
+        .get();
+      const title = $(element).find("a").first().text();
+      const url = $(element).find("a").first().attr("href");
       var start = url.lastIndexOf("/") + 1;
       var end = url.lastIndexOf(".html");
+      const id =
+        start !== -1 && end !== -1 && start < end
+          ? url.substring(start, end)
+          : url;
 
       return {
-        id:
-          start !== -1 && end !== -1 && start < end
-            ? url.substring(start, end)
-            : url,
-        title: $(element).text(),
+        id,
+        title,
+        genres,
       };
     })
     .get();
