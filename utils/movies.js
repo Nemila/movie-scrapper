@@ -1,7 +1,8 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const asyncHandler = require("express-async-handler");
 
-const getMovies = async (page) => {
+const getMovies = asyncHandler(async (page) => {
   const { data } = await axios.get(
     `https://wiflix.surf/film-en-streaming/page/${page}/`
   );
@@ -31,9 +32,9 @@ const getMovies = async (page) => {
     .get();
 
   return movieData;
-};
+});
 
-const getEmbedUrls = async (id) => {
+const getEmbedUrls = asyncHandler(async (id) => {
   const { data } = await axios.get(
     `https://wiflix.surf/film-en-streaming/${id}.html`
   );
@@ -44,11 +45,11 @@ const getEmbedUrls = async (id) => {
     .get();
 
   return embedUrls;
-};
+});
 
-const searchMovie = async (query) => {
+const searchMovie = asyncHandler(async (story) => {
   const { data } = await axios.post(
-    `https://wiflix.surf/index.php?story=${query}&do=search&subaction=search`
+    `https://wiflix.surf/index.php?story=${story}&do=search&subaction=search`
   );
 
   $ = cheerio.load(data);
@@ -79,7 +80,7 @@ const searchMovie = async (query) => {
     .get();
 
   return movieData;
-};
+});
 
 const movies = { getMovies, getEmbedUrls, searchMovie };
 module.exports = movies;
