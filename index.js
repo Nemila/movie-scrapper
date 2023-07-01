@@ -1,6 +1,5 @@
-import express from "express";
-import movies from "./utils/movies";
-const app = express();
+const app = require("express")();
+const movies = require("./utils/movies");
 
 app.get("/", (req, res) => {
   res.send(`Welcome`);

@@ -1,5 +1,5 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 const getMovies = async () => {
   const { data } = await axios.get(
@@ -15,4 +15,4 @@ const getMovies = async () => {
 };
 
 const movies = { getMovies };
-export default movies;
+module.exports = movies;
