@@ -78,14 +78,22 @@ const getEmbedUrls = asyncHandler(async (id) => {
   );
   $ = cheerio.load(data);
 
+  const image =
+    "https://wiflix.surf/" + $("img[itemprop='thumbnailUrl']").attr("src");
+  const title = $("li:nth-of-type(1) div.mov-desc").text();
+  const synopsis =
+    "Résumé du" + $("div.screenshots-full").text().split("Résumé du")[1];
+  const releaseDate = $("li:nth-of-type(2) div.mov-desc").text();
+  const origine = $("li:nth-of-type(4) div.mov-desc").text();
+
   const embedUrls = $(".tabs-sel > a")
     .map((_, element) => ({
-      provider: $(element).find("span").text().toLowerCase(),
+      name: $(element).find("span").text().toLowerCase(),
       url: $(element).attr("href").split("?u=")[1],
     }))
     .get();
 
-  return embedUrls;
+  return { image, title, synopsis, releaseDate, origine, providers: embedUrls };
 });
 
 const searchMovie = asyncHandler(async (story) => {
