@@ -2,9 +2,11 @@ const express = require("express");
 const app = express();
 const movies = require("./utils/movies");
 const asyncHandler = require("express-async-handler");
+const cors = require("cors");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.status(200).json({
