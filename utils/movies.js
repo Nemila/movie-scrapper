@@ -116,6 +116,7 @@ const searchMovie = asyncHandler(async (story) => {
 
       return {
         id,
+        image,
         title,
         genres,
       };
