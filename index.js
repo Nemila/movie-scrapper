@@ -16,6 +16,10 @@ app.get("/", (req, res) => {
         description: "Liste des films.",
       },
       {
+        url: "/films/animations?page=",
+        description: "Liste des films d'animation.",
+      },
+      {
         url: "/search?story=",
         description: "Recherchez un film.",
       },
@@ -34,6 +38,17 @@ app.get(
     const data = page
       ? await movies.getMovies(page)
       : await movies.getMovies(1);
+    res.status(200).json(data);
+  })
+);
+
+app.get(
+  "/films/animations",
+  asyncHandler(async (req, res) => {
+    const { page } = req.query;
+    const data = page
+      ? await movies.getAnimations(page)
+      : await movies.getAnimations(1);
     res.status(200).json(data);
   })
 );
