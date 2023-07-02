@@ -98,7 +98,7 @@ const searchMovie = asyncHandler(async (story) => {
   const movieData = $("div.mov:nth-of-type(n+2)")
     .map((_, element) => {
       const url = $(element).find("a").first().attr("href");
-      if (!url.includes("film-en-streaming")) return;
+      if (!url.includes("film")) return;
 
       const image =
         "https://wiflix.surf/" + $(element).find(".mov-i img").attr("src");
