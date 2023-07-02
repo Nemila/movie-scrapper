@@ -122,7 +122,7 @@ const searchMovie = asyncHandler(async (story) => {
     })
     .get();
 
-  return movieData;
+  return { number: movieData.length, data: movieData };
 });
 
 const movies = { getMovies, getAnimations, getEmbedUrls, searchMovie };
